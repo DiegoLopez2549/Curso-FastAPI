@@ -52,9 +52,12 @@ def read_item(item_id: int, item_id2: str):
     return {"item_id": item_id, "item_id2": item_id2}
 
 
-from fastapi import FastAPI
-
-app = FastAPI()
+# Porque las operaciones de path son evaluadas en orden,
+# tienes que asegurarte de que el path para /users/me
+# sea declarado antes que el path para /users/{user_id}:
+# De otra manera el path para /users/{user_id}
+# coincidiría también con /users/me "pensando"
+# que está recibiendo el parámetro user_id con el valor "me".
 
 
 @app.get("/users/me")
