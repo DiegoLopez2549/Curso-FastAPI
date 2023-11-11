@@ -47,15 +47,14 @@ def get_movie(id: int):
         return {"Error": "No hay pelicalas para mostrar"}
 
 
-# Parametros Query
-@app.get("/movies/", tags=["movies"])
-def get_movies_by_category(category: str, year: int):
-    return category
-
-
 @app.get("/items/{item_id}/sub/{item_id2}")
 def read_item(item_id: int, item_id2: str):
     return {"item_id": item_id, "item_id2": item_id2}
+
+
+from fastapi import FastAPI
+
+app = FastAPI()
 
 
 @app.get("/users/me")
