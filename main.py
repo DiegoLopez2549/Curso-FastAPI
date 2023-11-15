@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+
 
 app = FastAPI(
     title="App con FastAPI", version="0.0.1", description="Una API para aprender"
@@ -63,10 +64,8 @@ def read_item(item_id: int, item_id2: str):
 def get_movies_by_category(category: str, year: int):
     return category
 
-@app.post("/movies/", tags=["movies"])
-def create_movie(movie: dict):
-    return movie
-
+#Metodo POST
+# Creamos una clase BaseModel para definir el formato de los datos que recibimos
 class Movie(BaseModel):
     id: int
     title: str
@@ -74,3 +73,27 @@ class Movie(BaseModel):
     year: int
     rating: float
     category: str
+
+@app.post("/movies", tags=['Movies'])
+def create_movie(movie: Movie = Body(...)):
+    movies.append(movie)
+    return movie
+
+
+# Modificar una pelicula por su ID
+@app.put("/movies/{id}", tags=['Movies'])
+def update_movie(id: int, movie: Movie = Body(...)):
+    for m in movies:
+        if m["id"] == id:
+            m.update(movie)
+            return m
+    return {"Error": "Pelicula no encontrada"}
+
+# Eliminar una pelicula por su ID
+@app.delete("/movies/{id}", tags=['Movies'])
+def delete_movie(id: int):
+    for m in movies:
+        if m["id"] == id:
+            movies.remove(m)
+            return {"message": "Pelicula eliminada correctamente"}
+    return {"Error": "Pelicula no encontrada"}
