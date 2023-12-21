@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from typing import List
+from typing import List, Tuple, Set, Dict
 
 app = FastAPI()
 
@@ -20,4 +20,15 @@ async def get_name_whith_age(name: str, height: float):
 @app.get("/rutas3")
 async def process_item(items: list[str]):
     for item in items:
-        print (item.)
+        print (item)
+
+#Sets y tuplas
+@app.get("/rutas4")
+async def process_items(items_t: Tuple[int, int, str], Items_s: Set[bytes]):
+    return items_t, Items_s
+
+#Diccionarios en FastAPI
+@app.get("/rutas5")
+async def process_items(items: dict[str, float]):
+    for item_name, item_price in items.items():
+        print(item_name, item_price)
