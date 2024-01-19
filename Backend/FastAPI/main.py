@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from typing import List, Tuple, Set, Dict
+from pydantic import BaseModel
 
 app = FastAPI()
 
