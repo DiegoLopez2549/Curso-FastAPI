@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from typing import List, Tuple, Set, Dict
 from pydantic import BaseModel
 
+
 app = FastAPI()
 
 @app.get("/")
@@ -33,3 +34,4 @@ async def process_items(items_t: Tuple[int, int, str], Items_s: Set[bytes]):
 async def process_items(items: dict[str, float]):
     for item_name, item_price in items.items():
         print(item_name, item_price)
+
